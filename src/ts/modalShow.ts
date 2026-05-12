@@ -11,6 +11,7 @@ type Modals = {
   login: HTMLElement | null;
   register: HTMLElement | null;
   forgotPassword: HTMLElement | null;
+  rules: HTMLElement | null;
 };
 
 type Buttons = {
@@ -18,6 +19,7 @@ type Buttons = {
   // login: HTMLButtonElement | null;
   register: HTMLButtonElement | null;
   forgotPassword: HTMLButtonElement | null;
+  rules: HTMLButtonElement | null;
 };
 
 const modals: Modals = {
@@ -27,6 +29,7 @@ const modals: Modals = {
   login: document.querySelector<HTMLElement>('.login'),
   register: document.querySelector<HTMLElement>('.register'),
   forgotPassword: document.querySelector<HTMLElement>('#forgotPasswordModal'),
+  rules: document.querySelector<HTMLElement>('.rules'),
 };
 
 const buttons: Buttons = {
@@ -34,6 +37,7 @@ const buttons: Buttons = {
   // login: document.querySelector<HTMLButtonElement>('#headerLoginButton'),
   register: document.querySelector<HTMLButtonElement>('#loginButtonRegister'),
   forgotPassword: document.querySelector<HTMLButtonElement>('#loginForgotPasswordButton'),
+  rules: document.querySelector<HTMLButtonElement>('#rulesButton'),
 };
 
 const navLoginLi = document.querySelector('.header__nav-login') as HTMLElement | null;
@@ -68,6 +72,7 @@ export function openModal(modal: HTMLElement | null) {
 
 if (buttons.team) buttons.team.addEventListener('click', () => openModal(modals.team));
 if (buttons.register) buttons.register.addEventListener('click', () => openModal(modals.register));
+if (buttons.rules) buttons.rules.addEventListener('click', () => openModal(modals.rules));
 if (buttons.forgotPassword)
   buttons.forgotPassword.addEventListener('click', () => openModal(modals.forgotPassword));
 // Login modal opener (dynamic render)

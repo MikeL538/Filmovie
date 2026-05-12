@@ -52,6 +52,20 @@
         placeholder="E-mail"
         required
       />
+      <div>
+        <input id="rulesCheckbox" type="checkbox" required />
+        <span
+          ><span data-translate="acceptRulesPrefix">Accept</span>
+          <button
+            id="rulesButton"
+            class="register__rules-span"
+            type="button"
+            data-translate="acceptRulesButton"
+          >
+            rules
+          </button></span
+        >
+      </div>
 
       <button class="register__btn" type="submit" data-translate="register">Register</button>
       <button id="registerCancel" class="register__btn" type="button" data-translate="cancel">
@@ -60,4 +74,5 @@
     </form>
     <p class="register__error" data-translate=""></p>
   </div>
+  <include src="./partials/modal-rules.html"></include>
 </div>

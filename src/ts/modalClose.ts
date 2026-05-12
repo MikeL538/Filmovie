@@ -9,6 +9,7 @@ type Modals = {
   trailer: HTMLElement | null;
   player: HTMLIFrameElement | null;
   forgotPassword: HTMLElement | null;
+  rules: HTMLElement | null;
 };
 
 type Buttons = {
@@ -20,6 +21,7 @@ type Buttons = {
   trailer: HTMLButtonElement | null;
   forgotPasswordCancel: HTMLButtonElement | null;
   forgotPasswordXButton: HTMLButtonElement | null;
+  rules: HTMLButtonElement | null;
 };
 
 const modals: Modals = {
@@ -31,6 +33,7 @@ const modals: Modals = {
   trailer: document.querySelector<HTMLElement>('#trailer'),
   player: document.querySelector<HTMLIFrameElement>('#trailerPlayer'),
   forgotPassword: document.querySelector<HTMLElement>('#forgotPasswordModal'),
+  rules: document.querySelector<HTMLElement>('.rules'),
 };
 
 const buttons: Buttons = {
@@ -42,6 +45,7 @@ const buttons: Buttons = {
   trailer: document.querySelector<HTMLButtonElement>('#trailerModalClose'),
   forgotPasswordCancel: document.querySelector<HTMLButtonElement>('#forgot-passwordCancel'),
   forgotPasswordXButton: document.querySelector<HTMLButtonElement>('#forgot-passwordCloseButton'),
+  rules: document.querySelector<HTMLButtonElement>('#rulesCloseButton'),
 };
 
 function ensureModalFocusable(modal: HTMLElement | null | undefined) {
@@ -59,7 +63,10 @@ function hideModal(modal: HTMLElement | null | undefined) {
 }
 
 function getOpenModal(): HTMLElement | null {
+  // order is important, upper goes first
+  // eg. register -> rules so rules checked first
   if (isOpen(modals.trailer)) return modals.trailer;
+  if (isOpen(modals.rules)) return modals.rules;
   if (isOpen(modals.register)) return modals.register;
   if (isOpen(modals.forgotPassword)) return modals.forgotPassword;
   if (isOpen(modals.team)) return modals.team;
@@ -78,6 +85,7 @@ function getOpenModal(): HTMLElement | null {
   buttons.trailer,
   buttons.forgotPasswordCancel,
   buttons.forgotPasswordXButton,
+  buttons.rules,
 ].forEach(button => button?.addEventListener('click', closeModal));
 
 export function setupModalClose() {
@@ -88,6 +96,7 @@ export function setupModalClose() {
     modals.register,
     modals.trailer,
     modals.forgotPassword,
+    modals.rules,
   ].forEach(ensureModalFocusable);
   modals.backdrops.forEach(backdrop => {
     backdrop.addEventListener('click', e => {
@@ -129,68 +138,3 @@ export function closeModal() {
 
   restoreFocus();
 }
-
-//============================
-
-// export function modalClose(modal: HTMLElement | null | undefined) {
-//   // Is modal focusable?
-//   if (modal && !modal.hasAttribute('tabindex')) {
-//     modal.setAttribute('tabindex', '-1');
-//   }
-
-//   // Hide modal on backdrop click
-//   modals.backdrops.forEach(backdrop => {
-//     backdrop.addEventListener('click', e => {
-//       if (e.target === backdrop) closeModal();
-//     });
-//   });
-
-//   // Escape + focus trap
-//   window.addEventListener('keydown', e => {
-//     if (e.key === 'Escape') {
-//       closeModal();
-//       return;
-//     }
-
-//     // Focus trap only if details is open
-//     if (!modals.details) return;
-//     if (modals.details.classList.contains('hidden')) return;
-
-//     trapFocus(modals.details, e);
-//   });
-// }
-
-// export function closeModal() {
-//   // Close only trailer modal if opened
-//   if (!modals.trailer?.classList.contains('hidden')) {
-//     modals.trailer?.classList.add('hidden');
-//     if (modals.player) modals.player.src = '';
-
-//     restoreFocus();
-//     return;
-//   }
-
-//   // Close only register modal
-//   if (!modals.register?.classList.contains('hidden')) {
-//     modals.register?.classList.add('hidden');
-
-//     restoreFocus();
-//     return;
-//   }
-
-//   if (!modals.forgotPassword?.classList.contains('hidden')) {
-//     modals.forgotPassword?.classList.add('hidden');
-
-//     restoreFocus();
-//     return;
-//   }
-
-//   modals.team?.classList.add('hidden');
-//   modals.details?.classList.add('hidden');
-//   modals.login?.classList.add('hidden');
-
-//   document.body.style.overflow = 'auto';
-
-//   unlockBackground();
-//   restoreFocus();
-// }

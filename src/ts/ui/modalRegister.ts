@@ -20,6 +20,7 @@ const registerErrorMap: Record<string, string> = {
   LOGIN_TOO_LONG: 'loginTooLong',
   PASSWORD_TOO_SHORT: 'passwordTooShort',
   PASSWORD_TOO_LONG: 'passwordTooLong',
+  ACCEPT_TERMS: 'acceptTerms',
 };
 
 export function serverWakingUpInfo() {
@@ -69,10 +70,18 @@ export async function registerHandler() {
       '#registerRepeatPassword',
     ) as HTMLInputElement | null;
     const email = document.querySelector('#registerEmail') as HTMLInputElement | null;
+    const rulesCheckbox = document.querySelector<HTMLInputElement>('#rulesCheckbox');
 
     if (passwordInput?.value !== repeatPasswordInput?.value && formError) {
       formError.style.display = 'block';
-      formError.textContent = 'Passwords are different.';
+      formError.dataset.translate = 'passwordsDifferent';
+      applyTranslations();
+      return;
+    }
+
+    if (rulesCheckbox && !rulesCheckbox.checked && formError) {
+      formError.style.display = 'block';
+      formError.dataset.translate = 'acceptTerms';
       applyTranslations();
       return;
     }

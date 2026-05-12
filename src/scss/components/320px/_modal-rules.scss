@@ -1,0 +1,114 @@
+@use '../utils/vars' as vars;
+
+.rules {
+  &__close-button {
+    @include vars.flex-center;
+    border-radius: 50%;
+    border: 1px solid;
+    height: 26px;
+    position: absolute;
+    right: 10px;
+    transition: vars.$transition;
+    width: 26px;
+    top: 7px;
+    z-index: 1;
+
+    &:hover {
+      border-color: vars.$color-filmovie;
+
+      > svg {
+        fill: vars.$color-filmovie;
+      }
+    }
+  }
+
+  &__container {
+    background-color: vars.$color-details-bg-light;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 107, 8, 0.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    color: vars.$color-default-light;
+    left: 50%;
+    max-height: min(82vh, 720px);
+    overflow: hidden;
+    padding: 24px 20px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(92vw, 720px);
+  }
+
+  &__content {
+    max-height: calc(min(82vh, 720px) - 48px);
+    overflow-y: auto;
+    padding-right: 8px;
+    width: 100%;
+  }
+
+  &__title {
+    color: vars.$color-filmovie;
+    font-size: vars.$font-lg;
+    line-height: 1.25;
+    margin: 0 36px 4px 0;
+  }
+
+  &__updated {
+    color: #6b7280;
+    font-size: vars.$font-xs;
+    margin-bottom: 16px;
+  }
+
+  &__section {
+    margin-bottom: 16px;
+
+    h3 {
+      font-size: vars.$font-md;
+      margin-bottom: 6px;
+    }
+
+    p,
+    li {
+      font-size: vars.$font-sm;
+      line-height: 1.55;
+    }
+
+    p + p {
+      margin-top: 8px;
+    }
+
+    ul {
+      list-style: disc;
+      margin: 8px 0 8px 18px;
+    }
+  }
+
+  a {
+    color: vars.$color-filmovie;
+    font-weight: 700;
+
+    &:hover,
+    &:focus {
+      color: vars.$color-error;
+    }
+  }
+}
+
+html[data-theme='dark'] {
+  .rules__close-button {
+    fill: #fff;
+    stroke: #fff;
+  }
+
+  .rules__container {
+    background-color: vars.$color-details-bg;
+    color: vars.$color-default;
+  }
+
+  .rules__updated {
+    color: #cbd5e1;
+  }
+
+  .rules__content {
+    color: vars.$color-default;
+  }
+}

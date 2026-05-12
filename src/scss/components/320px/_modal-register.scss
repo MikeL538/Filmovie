@@ -106,6 +106,17 @@
     }
   }
 
+  &__rules-span {
+    color: vars.$color-filmovie;
+    text-decoration: underline;
+    transition: vars.$transition;
+
+    &:hover,
+    &:focus {
+      color: vars.$color-error;
+    }
+  }
+
   &__error {
     display: none;
     color: vars.$color-error;
