@@ -20,7 +20,7 @@ const registerErrorMap: Record<string, string> = {
   LOGIN_TOO_LONG: 'loginTooLong',
   PASSWORD_TOO_SHORT: 'passwordTooShort',
   PASSWORD_TOO_LONG: 'passwordTooLong',
-  ACCEPT_TERMS: 'acceptTerms',
+  TERMS_NOT_ACCEPTED: 'acceptTerms',
 };
 
 export function serverWakingUpInfo() {
@@ -89,7 +89,12 @@ export async function registerHandler() {
     try {
       serverWakingUpInfo();
 
-      await registerUser(loginInput!.value, passwordInput!.value, email!.value);
+      await registerUser(
+        loginInput!.value,
+        passwordInput!.value,
+        email!.value,
+        rulesCheckbox!.checked,
+      );
 
       clearServerWakingUpInfo();
       // setServerToken(data.token);
